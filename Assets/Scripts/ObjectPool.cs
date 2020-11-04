@@ -6,15 +6,15 @@ using UnityEngine;
 public class ObjectPool<T> where T : MonoBehaviour
 {
 	private T[] pool;
-	private bool fixedSize;
-	private int growthIncrement;
-	private T template;
+	private readonly T template;
+	private readonly bool fixedSize;
+	private readonly int growthIncrement;
 	
 	public ObjectPool(T template, int poolSize, bool fixedSize = false) {
+		pool = new T[poolSize];
 		this.template = template;
 		this.fixedSize = fixedSize;
 		growthIncrement = poolSize;
-		pool = new T[poolSize];
 
 		//Fill the array with copies of the template, and immediately deactivate them
 		for (int i = 0; i < poolSize; i++) {
@@ -29,7 +29,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
 	public T SpawnFromPool(Vector3 position, Quaternion rotation) {
 		//Get the first inactive element from the pool
-		T spawned = pool.FirstOrDefault(o => o.gameObject.activeInHierarchy);
+		T spawned = pool.FirstOrDefault(o => !o.gameObject.activeInHierarchy);
 
 		if (spawned == null) {//No inactive elements, so we should grow if possible
 			if (fixedSize)

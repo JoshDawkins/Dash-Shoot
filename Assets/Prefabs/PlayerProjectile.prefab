@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: color.b
       value: 0.03529412
       objectReference: {fileID: 0}
+    - target: {fileID: 2426605982388985723, guid: e41248adf29869f41aa8e084142e49f5, type: 3}
+      propertyPath: isPooled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2426605982388985726, guid: e41248adf29869f41aa8e084142e49f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

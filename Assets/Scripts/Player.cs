@@ -23,9 +23,14 @@ public class Player : MonoBehaviour
 	private Vector3 movedir;
 	private float shootTimer = 0.0f;
 	private Coroutine dashCoroutine = null;
+	private ObjectPool<Projectile> projectilePool = null;
 
 	private void Awake() {
 		Rb = GetComponent<Rigidbody>();
+	}
+
+	private void Start() {
+		projectilePool = new ObjectPool<Projectile>(projectilePrefab, 10, 5);
 	}
 
 	private void Update() {
@@ -65,7 +70,8 @@ public class Player : MonoBehaviour
 
 		//Shoot if applicable and able
 		if (Input.GetMouseButton(0) && shootTimer == 0.0f) {
-			Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
+			//Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
+			projectilePool.SpawnFromPool(transform.position + (transform.forward * projectileOffset), transform.rotation);
 			shootTimer = rateOfFire;
 		}
 
