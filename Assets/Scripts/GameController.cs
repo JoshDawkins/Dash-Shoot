@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
-{
+public class GameController : MonoBehaviour {
 	public static GameController Instance { get; private set; }
 	public static Player Player { get; private set; }
 	public static bool Playing { get; private set; }
+	public static ProjectileManager ProjectileManager { get => Instance.projectileManager; }
 
 	[SerializeField]
 	private Text controlsLbl = null,
@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
 		retryLbl = null;
 	[SerializeField]
 	private CinemachineVirtualCamera mainCam = null;
+	[SerializeField]
+	private ProjectileManager projectileManager = null;
 
 	private void Awake() {
 		if (Instance == null)
@@ -28,8 +30,14 @@ public class GameController : MonoBehaviour
 	}
 
 	private IEnumerator Start() {
+		//Find and store the player
 		Player = FindObjectOfType<Player>();
 
+		//Initialize the ProjectileManager, making sure its pooled objects are instantiated in the persistent scene.
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("Persistent"));
+		projectileManager.Init();
+
+		//Begin initializing the game
 		yield return InitializeGame();
 	}
 
@@ -58,12 +66,10 @@ public class GameController : MonoBehaviour
 		mainCam.gameObject.SetActive(true);
 
 		//If level 1 is not already loaded (such as in the editor), load it
-		Scene lvl1 = SceneManager.GetSceneByName("Level1");
-		if (!lvl1.isLoaded) {
+		if (!SceneManager.GetSceneByName("Level1").isLoaded) {
 			yield return SceneManager.LoadSceneAsync("Level1", LoadSceneMode.Additive);
-			lvl1 = SceneManager.GetSceneByName("Level1");
 		}
-		SceneManager.SetActiveScene(lvl1);
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("Persistent"));
 
 		//Wait for the player to press the spacebar before starting the game for realsies
 		StartCoroutine(StartAfterInput());

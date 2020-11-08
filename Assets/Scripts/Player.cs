@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
 		rateOfFire = 0.33f,
 		projectileOffset = 0.7f;
 	[SerializeField]
-	private Projectile projectilePrefab = null;
+	//private Projectile projectilePrefab = null;
+	private ProjectileManager.ProjectileType projectileType = ProjectileManager.ProjectileType.Player;
 	[SerializeField]
 	private Killable killable = null;
 	[SerializeField]
@@ -23,15 +24,15 @@ public class Player : MonoBehaviour
 	private Vector3 movedir;
 	private float shootTimer = 0.0f;
 	private Coroutine dashCoroutine = null;
-	private ObjectPool<Projectile> projectilePool = null;
+	//private ObjectPool<Projectile> projectilePool = null;
 
 	private void Awake() {
 		Rb = GetComponent<Rigidbody>();
 	}
 
-	private void Start() {
-		projectilePool = new ObjectPool<Projectile>(projectilePrefab, 10, 5);
-	}
+	//private void Start() {
+	//	projectilePool = new ObjectPool<Projectile>(projectilePrefab, 10, 5);
+	//}
 
 	private void Update() {
 		//Update the timers if necessary
@@ -71,7 +72,8 @@ public class Player : MonoBehaviour
 		//Shoot if applicable and able
 		if (Input.GetMouseButton(0) && shootTimer == 0.0f) {
 			//Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
-			projectilePool.SpawnFromPool(transform.position + (transform.forward * projectileOffset), transform.rotation);
+			//projectilePool.SpawnFromPool(transform.position + (transform.forward * projectileOffset), transform.rotation);
+			GameController.ProjectileManager.SpawnProjectile(projectileType, transform.position + (transform.forward * projectileOffset), transform.rotation);
 			shootTimer = rateOfFire;
 		}
 

@@ -1985,6 +1985,7 @@ MonoBehaviour:
   winLoseLbl: {fileID: 1609575061}
   retryLbl: {fileID: 1982007876}
   mainCam: {fileID: 898945245}
+  projectileManager: {fileID: 11400000, guid: d787869b0b5e9b64e85145bc88fc491f, type: 2}
 --- !u!4 &1806713825
 Transform:
   m_ObjectHideFlags: 0
@@ -2274,7 +2275,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15332
+  m_Name: pb_Mesh15334
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2560,7 +2561,7 @@ MonoBehaviour:
   dashDuration: 0.3
   rateOfFire: 0.33
   projectileOffset: 0.7
-  projectilePrefab: {fileID: 9061606945035879851, guid: e2d553b235df8c948828d3ceb47606fa, type: 3}
+  projectileType: 0
   killable: {fileID: 1336444700}
   dashEffect: {fileID: 1699849551}
 --- !u!54 &2130627509

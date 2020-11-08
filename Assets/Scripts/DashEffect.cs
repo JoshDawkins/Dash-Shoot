@@ -11,7 +11,7 @@ public class DashEffect : MonoBehaviour
 	private void OnTriggerEnter(Collider other) {
 		//Destroy any projectiles that touch the dash effect
 		if (other.GetComponent<Projectile>() != null) {
-			Destroy(other.gameObject);
+			other.gameObject.SetActive(false);
 		}
 
 		//Damage any killable objects we hit

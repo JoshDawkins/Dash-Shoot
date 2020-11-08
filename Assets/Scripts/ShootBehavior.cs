@@ -9,7 +9,8 @@ public class ShootBehavior : MonoBehaviour
         aimSpeed = 4.0f,
         projectileOffset = 0.7f;
     [SerializeField]
-    private Projectile projectilePrefab = null;
+    //private Projectile projectilePrefab = null;
+    private ProjectileManager.ProjectileType projectileType = ProjectileManager.ProjectileType.Basic;
 
     private float shootTimer = 0.0f;
 
@@ -28,7 +29,8 @@ public class ShootBehavior : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(toPlayer), Time.deltaTime * aimSpeed);
 
         if (shootTimer == 0.0f) {
-            Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
+            //Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
+            GameController.ProjectileManager.SpawnProjectile(projectileType, transform.position + (transform.forward * projectileOffset), transform.rotation);
             shootTimer = rateOfFire;
         }
 	}

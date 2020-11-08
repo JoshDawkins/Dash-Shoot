@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     private Color color = Color.green;
 
     //Temporary variable for use while we are still transitioning to ObjectPools
-    [SerializeField] private bool isPooled = false;
+    //[SerializeField] private bool isPooled = false;
 
     private Rigidbody rb = null;
 
@@ -34,9 +34,9 @@ public class Projectile : MonoBehaviour
         collision.gameObject.GetComponent<Killable>()?.ApplyDamage(damage);
 
         //Destroy the projectile
-        if (isPooled)
+        //if (isPooled)
             gameObject.SetActive(false);
-        else
-            Destroy(gameObject);
+        //else
+            //Destroy(gameObject);
 	}
 }
