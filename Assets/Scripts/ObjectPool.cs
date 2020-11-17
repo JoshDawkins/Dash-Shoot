@@ -57,4 +57,10 @@ public class ObjectPool<T> where T : MonoBehaviour
 		//Finally, return the spawned object
 		return spawned;
 	}
+
+	public void DisableAllPooledObjects() {
+		foreach (T obj in pool) {
+			obj.gameObject.SetActive(false);
+		}
+	}
 }

@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public static Player Player { get; private set; }
 	public static bool Playing { get; private set; }
 	public static ProjectileManager ProjectileManager { get => Instance.projectileManager; }
+	public static EnemyManager EnemyManager { get => Instance.enemyManager; }
 
 	[SerializeField]
 	private Text controlsLbl = null,
@@ -21,6 +22,8 @@ public class GameController : MonoBehaviour {
 	private CinemachineVirtualCamera mainCam = null;
 	[SerializeField]
 	private ProjectileManager projectileManager = null;
+	[SerializeField]
+	private EnemyManager enemyManager = null;
 
 	private void Awake() {
 		if (Instance == null)
@@ -33,9 +36,10 @@ public class GameController : MonoBehaviour {
 		//Find and store the player
 		Player = FindObjectOfType<Player>();
 
-		//Initialize the ProjectileManager, making sure its pooled objects are instantiated in the persistent scene.
+		//Initialize managers, making sure their pooled objects are instantiated in the persistent scene.
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName("Persistent"));
 		projectileManager.Init();
+		enemyManager.Init();
 
 		//Begin initializing the game
 		yield return InitializeGame();
@@ -100,7 +104,7 @@ public class GameController : MonoBehaviour {
 
 		//Enable the player and enemies
 		Player.enabled = true;
-		EnemyManager.SetAllEnemiesActive(true);
+		EnemyManager.SpawnWave(0, 0);
 
 		//Ready to play
 		Playing = true;
@@ -153,8 +157,11 @@ public class GameController : MonoBehaviour {
 		}
 
 		//Unload Level1
-		EnemyManager.Clear();
 		yield return SceneManager.UnloadSceneAsync("Level1");
+
+		//Clear any enemies or projectiles left on-screen
+		EnemyManager.ClearAllEnemies();
+		ProjectileManager.ClearAllProjectiles();
 
 		//Reinitialize the game
 		yield return InitializeGame();

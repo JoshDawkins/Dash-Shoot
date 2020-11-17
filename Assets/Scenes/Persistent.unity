@@ -1963,7 +1963,7 @@ GameObject:
   - component: {fileID: 1806713824}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1986,6 +1986,7 @@ MonoBehaviour:
   retryLbl: {fileID: 1982007876}
   mainCam: {fileID: 898945245}
   projectileManager: {fileID: 11400000, guid: d787869b0b5e9b64e85145bc88fc491f, type: 2}
+  enemyManager: {fileID: 11400000, guid: 5367eb621cd6ca2448f0dbd5cede5575, type: 2}
 --- !u!4 &1806713825
 Transform:
   m_ObjectHideFlags: 0
@@ -2275,7 +2276,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15334
+  m_Name: pb_Mesh15328
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

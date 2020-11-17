@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4caeebee66bcd04cba38aaecab5e07c, type: 3}
+  m_Name: EnemyManager
+  m_EditorClassIdentifier: 
+  enemyConfigs:
+  - type: 0
+    prefab: {fileID: 2343006995144093041, guid: 5909bc0f12e946246adea5443d3474b4, type: 3}
+    poolSize: 10
+  - type: 1
+    prefab: {fileID: -9036497302352374287, guid: c82a011916ea1c0479cfef94d4c3ae86, type: 3}
+    poolSize: 10
+  - type: 2
+    prefab: {fileID: 5838035997635306199, guid: fae91c611deb79146b5b2b07f2e5bab2, type: 3}
+    poolSize: 3
+  enemyWaves:
+  - waves:
+    - {fileID: 11400000, guid: 16793722f699fdb4c8c0288aeb1da935, type: 2}

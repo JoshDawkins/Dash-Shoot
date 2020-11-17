@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  destroyOnDeath: 1
+  destroyOnDeath: 0
   onHurt:
     m_PersistentCalls:
       m_Calls: []
@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 1.5
-  spawnedPrefab: {fileID: 1341436724438293196, guid: c82a011916ea1c0479cfef94d4c3ae86, type: 3}
+  enemyType: 1

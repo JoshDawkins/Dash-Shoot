@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  destroyOnDeath: 1
+  destroyOnDeath: 0
   onHurt:
     m_PersistentCalls:
       m_Calls: []
@@ -147,7 +147,7 @@ MonoBehaviour:
   rateOfFire: 1.5
   aimSpeed: 4
   projectileOffset: 0.7
-  projectilePrefab: {fileID: 2426605982388985723, guid: e41248adf29869f41aa8e084142e49f5, type: 3}
+  projectileType: 1
 --- !u!1 &5993577394541170878
 GameObject:
   m_ObjectHideFlags: 0

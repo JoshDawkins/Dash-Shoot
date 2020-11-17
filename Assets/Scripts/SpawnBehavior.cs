@@ -7,7 +7,8 @@ public class SpawnBehavior : MonoBehaviour
     [SerializeField]
     private float spawnRate = 1.5f;
     [SerializeField]
-    private Killable spawnedPrefab = null;
+    //private Killable spawnedPrefab = null;
+    private EnemyManager.EnemyType enemyType = EnemyManager.EnemyType.Chaser;
 
     private float spawnTimer = 0.0f;
 
@@ -23,7 +24,8 @@ public class SpawnBehavior : MonoBehaviour
 
         //Spawn the assigned prefab when the timer reaches 0
         if (spawnTimer == 0.0f) {
-            Instantiate(spawnedPrefab, transform.position, transform.rotation);
+            //Instantiate(spawnedPrefab, transform.position, transform.rotation);
+            GameController.EnemyManager.SpawnEnemy(enemyType, transform.position, transform.rotation);
 
             //Reset the spawn timer
             spawnTimer = spawnRate;
