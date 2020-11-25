@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
 		rateOfFire = 0.33f,
 		projectileOffset = 0.7f;
 	[SerializeField]
-	//private Projectile projectilePrefab = null;
 	private ProjectileManager.ProjectileType projectileType = ProjectileManager.ProjectileType.Player;
 	[SerializeField]
 	private Killable killable = null;
@@ -24,15 +23,12 @@ public class Player : MonoBehaviour
 	private Vector3 movedir;
 	private float shootTimer = 0.0f;
 	private Coroutine dashCoroutine = null;
-	//private ObjectPool<Projectile> projectilePool = null;
+	private PlayerInputManager input;
 
 	private void Awake() {
 		Rb = GetComponent<Rigidbody>();
+		input = ScriptableObject.CreateInstance<PlayerInputManager>();
 	}
-
-	//private void Start() {
-	//	projectilePool = new ObjectPool<Projectile>(projectilePrefab, 10, 5);
-	//}
 
 	private void Update() {
 		//Update the timers if necessary
@@ -44,16 +40,7 @@ public class Player : MonoBehaviour
 			return;
 
 		//Handle movement
-		movedir = Vector3.zero;
-
-		if (Input.GetKey(KeyCode.W))
-			movedir += Vector3.forward;
-		if (Input.GetKey(KeyCode.S))
-			movedir += Vector3.back;
-		if (Input.GetKey(KeyCode.A))
-			movedir += Vector3.left;
-		if (Input.GetKey(KeyCode.D))
-			movedir += Vector3.right;
+		movedir = input.Move;//Vector2 is implicitly converted to a Vector3 with a z value of 0
 
 		if (movedir == Vector3.zero) {
 			Rb.velocity = movedir;
@@ -64,13 +51,21 @@ public class Player : MonoBehaviour
 			Rb.velocity = movedir * movementSpeed;
 		}
 
-		//Rotate to face the mouse
-		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)) {
-			transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+		//Use the Aim axes to determine facing if they are input from the keyboard or gamepad
+		if (input.Aim != Vector3.zero) {
+			//Remember, in Unity forward is on the Z-axis, not the Y-axis
+			transform.LookAt(transform.position + new Vector3(input.AimX, 0, input.AimY));
+		}
+		//Otherwise, follow the mouse if it has moved since the previous frame
+		else if (input.LastMouseTime >= Time.time - Time.deltaTime) {
+			//Rotate to face the mouse
+			if (Physics.Raycast(Camera.main.ScreenPointToRay(input.MousePosition), out RaycastHit hit)) {
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+			}
 		}
 
 		//Shoot if applicable and able
-		if (Input.GetMouseButton(0) && shootTimer == 0.0f) {
+		if (input.Shoot && shootTimer == 0.0f) {
 			//Instantiate(projectilePrefab, transform.position + (transform.forward * projectileOffset), transform.rotation);
 			//projectilePool.SpawnFromPool(transform.position + (transform.forward * projectileOffset), transform.rotation);
 			GameController.ProjectileManager.SpawnProjectile(projectileType, transform.position + (transform.forward * projectileOffset), transform.rotation);
@@ -78,7 +73,7 @@ public class Player : MonoBehaviour
 		}
 
 		//Start a dash when the spacebar is pressed
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (input.Dash) {
 			dashCoroutine = StartCoroutine(Dash());
 		}
 	}

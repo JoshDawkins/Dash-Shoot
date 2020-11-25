@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour {
 
 	private IEnumerator StartAfterInput() {
 		//Wait each frame until the user presses the spacebar
-		while (true) {
+		/*while (true) {
 			if (Input.GetKeyDown(KeyCode.Space))
 				break;
 
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour {
 			}
 
 			yield return null;
-		}
+		}*/
 
 		//Start countdown timer
 		countdownLbl.gameObject.SetActive(true);
@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour {
 
 	private IEnumerator RestartAfterKeyPress() {
 		//Wait for a keypress
-		while (true) {
+		/*while (true) {
 			if (Input.GetKeyDown(KeyCode.R))
 				break;
 
@@ -154,7 +154,7 @@ public class GameController : MonoBehaviour {
 			}
 
 			yield return null;
-		}
+		}*/
 
 		//Unload Level1
 		yield return SceneManager.UnloadSceneAsync("Level1");
